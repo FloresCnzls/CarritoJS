@@ -1,12 +1,17 @@
+// Importamos las clases necesariass pra poder utilizar er las funciones
+
 import { CarritoDeCompras } from './CarritoDeCompras.js';
 import { Producto } from './Producto.js';
 
+//Instanciamos clase CarritoDeCompras
 const carrito = new CarritoDeCompras();
+
+//Agregar producots al carrito, ademas de invocar 
 
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.agregar-al-carrito').forEach(boton => {
         boton.addEventListener('click', function () {
-            const nombre = this.getAttribute('data-name'); // Asegúrate de que el atributo 'data-name' coincide
+            const nombre = this.getAttribute('data-name'); 
             const precio = parseFloat(this.getAttribute('data-price'));
             const imagen = this.getAttribute('data-image');
 
@@ -36,17 +41,19 @@ document.addEventListener('DOMContentLoaded', function () {
     manejarBotonesCarrito(); // Inicializa los manejadores de eventos para los botones de la UI
 });
 
+// Permite actualizar valores previamente agregados al carrito
 function actualizarCarritoUI() {
     const elementosCarrito = document.querySelector('.elementos-carrito');
     const elementoTotal = document.querySelector('.total');
     const elementoCantidadCarrito = document.getElementById('contador-carrito');
 
     if (!elementosCarrito) {
-        console.error('No se encontró el elemento con la clase "elementos-carrito".');
+        console.error('No se encontró ningun producto en el carrito.');
         return;
     }
 
-    elementosCarrito.innerHTML = ''; // Limpia el contenido actual del carrito en la UI
+    // Limpia el contenido actual del carrito en la UI
+    elementosCarrito.innerHTML = ''; 
 
     // Recorre los productos en el carrito y los agrega a la UI
     carrito.carrito.forEach((producto, indice) => {
@@ -75,17 +82,19 @@ function actualizarCarritoUI() {
     }
 }
 
-
+// Muestra el carrito en la pantalla
 function mostrarCarrito() {
     const overlayCarrito = document.getElementById('superposicion-carrito');
-    overlayCarrito.style.display = 'block'; // Muestra el carrito en la pantalla
+    overlayCarrito.style.display = 'flex'; 
 }
 
+// Oculta el carrito de la pantalla
 function ocultarCarrito() {
     const overlayCarrito = document.getElementById('superposicion-carrito');
-    overlayCarrito.style.display = 'none'; // Oculta el carrito de la pantalla
+    overlayCarrito.style.display = 'none'; 
 }
 
+// Permite aumentar, disminuir o eliminar los productos ya ingresados al carrito
 function manejarBotonesCarrito() {
     const elementosCarrito = document.querySelector('.elementos-carrito');
 
@@ -106,6 +115,8 @@ function manejarBotonesCarrito() {
         actualizarCarritoUI();
     });
 }
+
+// Muestra la factura la seleccionar genera Factura
 
 function mostrarFactura(factura) {
     if (!factura || !Array.isArray(factura.items)) {
