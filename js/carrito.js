@@ -81,3 +81,117 @@ function readTheContent(product){
 }
 
 
+function loadHtml(){
+    clearHtml();
+    buyThings.forEach(product => {
+        const {image, title, price, amount, id} = product;
+        const row = document.createElement('div');
+        row.classList.add('item');
+        row.innerHTML = `
+            <img src="${image}" alt="">
+            <div class="item-content">
+                <h5>${title}</h5>
+                <h5 class="cart-price">${price}$</h5>
+                <h6>Amount: ${amount}</h6>
+            </div>
+            <span class="delete-product" data-id="${id}">X</span>
+        `;
+
+        containerBuyCart.appendChild(row);
+
+        priceTotal.innerHTML = totalCard;
+
+        amountProduct.innerHTML = countProduct;
+    });
+}
+ function clearHtml(){
+    containerBuyCart.innerHTML = '';
+ }
+
+ document.getElementById('generateInvoice').addEventListener('click', generateInvoice);
+
+ function generateInvoice() {
+    let invoiceWindow = window.open('', 'Invoice', 'width=800,height=600');
+    invoiceWindow.document.write(`
+        <html>
+        <head>
+            <h2>FACTURA ELECTRONICA</h2>
+            <style>
+              h2{
+                 text-align: center
+               }
+                body {
+                    font-family: Arial, sans-serif;
+                    margin: 20px;
+                    padding: 20px;
+                }
+                .invoice-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 20px;
+                }
+                .invoice-header img {
+                    max-width: 150px;
+                }
+                .invoice-header h1 {
+                    font-size: 24px;
+                }
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-bottom: 20px;
+                }
+                table, th, td {
+                    border: 1px solid #ddd;
+                }
+                th, td {
+                    padding: 12px;
+                    text-align: left;
+                }
+                th {
+                    background-color: #f2f2f2;
+                }
+                .total {
+                    text-align: right;
+                    font-size: 18px;
+                    font-weight: bold;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="invoice-header">
+                <img src="./images/onlineshoppinglogo.png" alt="Logo">
+                <h1>Detalles de tu compra</h1>
+            </div>
+            <table>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                </tr>
+    `);
+    
+    buyThings.forEach(product => {
+        const {title, price, amount} = product;
+        invoiceWindow.document.write(`
+            <tr>
+                <td>${title}</td>
+                <td>${price}$</td>
+                <td>${amount}</td>
+                <td>${(price * amount).toFixed(2)}$</td>
+            </tr>
+        `);
+    });
+
+    invoiceWindow.document.write(`
+            </table>
+            <div class="total">Total: ${totalCard}$</div>
+        </body>
+        </html>
+    `);
+    
+    invoiceWindow.document.close();
+    invoiceWindow.print();
+}
