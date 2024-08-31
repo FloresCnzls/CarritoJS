@@ -9,14 +9,6 @@ let buyThings = [];
 let totalCard = 0;
 let countProduct = 0;
 
-//functions
-loadEventListenrs();
-function loadEventListenrs(){
-    allContainerCart.addEventListener('click', addProduct);
-
-    containerBuyCart.addEventListener('click', deleteProduct);
-}
-
 function addProduct(e){
     e.preventDefault();
     if (e.target.classList.contains('btn-add-cart')) {
@@ -25,3 +17,10 @@ function addProduct(e){
     }
 }
 
+//functions
+loadEventListenrs();
+function loadEventListenrs(){
+    allContainerCart.addEventListener('click', addProduct);
+
+    containerBuyCart.addEventListener('click', deleteProduct);
+}
