@@ -85,7 +85,7 @@ function actualizarCarritoUI() {
 // Muestra el carrito en la pantalla
 function mostrarCarrito() {
     const overlayCarrito = document.getElementById('superposicion-carrito');
-    overlayCarrito.style.display = 'flex'; 
+    overlayCarrito.style.display = 'block'; 
 }
 
 // Oculta el carrito de la pantalla
